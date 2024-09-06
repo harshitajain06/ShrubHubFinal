@@ -119,6 +119,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
     padding: 20,
+    marginTop:40,
   },
   input: {
     marginBottom: 20,

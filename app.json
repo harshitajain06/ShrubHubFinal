@@ -2,7 +2,7 @@
   "expo": {
     "name": "ShrubHub1",
     "slug": "ShrubHub1",
-    "version": "1.0.8",
+    "version": "2.7.9",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -21,7 +21,7 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.harshitaforever.ShrubHub2",
-      "versionCode": 8
+      "versionCode": 17
     },
     "web": {
       "bundler": "metro",

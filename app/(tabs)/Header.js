@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-const Header = ({ toggleSearchBar, username }) => {
+const Header = ({ toggleSearchBar }) => {
   const navigation = useNavigation();
 
   return (
@@ -13,10 +13,9 @@ const Header = ({ toggleSearchBar, username }) => {
       <View>
         <Text style={{ color: 'white', fontSize: 20, fontWeight: 'bold' }}>Forum</Text>
       </View>
-      <TouchableOpacity onPress={() => navigation.navigate('MyProfile', { username })}>
+      <TouchableOpacity onPress={() => navigation.navigate('MyProfile')}>
         <Image source={require('../../assets/images/profile1.png')} style={{ width: 30, height: 30 }} />
       </TouchableOpacity>
-      
     </View>
   );
 };

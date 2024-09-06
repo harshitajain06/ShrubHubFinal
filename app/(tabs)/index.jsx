@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ImageBackground, Alert, StyleSheet } from 'react-native';
-import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';  // Removed updateProfile
+import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
 import { auth } from '../../config/firebase';
 import { useNavigation } from '@react-navigation/native';
 import Toast from 'react-native-toast-message';
@@ -9,31 +9,30 @@ const backImage = require('../../assets/images/Img2.png');
 
 const RegisterScreen = () => {
   const navigation = useNavigation();
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSignUp = async () => {
     try {
-      // Register user
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-
-      // Extract username from email (part before '@')
-      const username = email.split('@')[0];
 
       // Send email verification
       await sendEmailVerification(user);
 
-      // Show success toast and alert
+      // Show success alert
       Alert.alert('Success', 'Account created successfully! Please verify your email.');
+
+      // Show success toast
       Toast.show({
         type: 'success',
         text1: 'Account created successfully!',
         text2: 'Please verify your email.',
       });
 
-      // Navigate to ForumPageWithTabs with username
-      navigation.navigate('ForumPageWithTabs', { username });
+      // Navigate to login screen
+      navigation.navigate('LoginScreen');
     } catch (error) {
       let errorMessage;
       switch (error.code) {
@@ -53,8 +52,10 @@ const RegisterScreen = () => {
           errorMessage = 'An unknown error occurred. Please try again later.';
       }
 
-      // Show error alert and toast
+      // Show error alert
       Alert.alert('Error', errorMessage);
+
+      // Show error toast
       Toast.show({
         type: 'error',
         text1: 'Error',
@@ -67,6 +68,13 @@ const RegisterScreen = () => {
     <ImageBackground source={backImage} style={styles.container}>
       <View style={styles.innerContainer}>
         <Text style={styles.title}>Welcome Form</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Name"
+          placeholderTextColor="white"
+          value={name}
+          onChangeText={setName}
+        />
         <TextInput
           style={styles.input}
           placeholder="Email"
