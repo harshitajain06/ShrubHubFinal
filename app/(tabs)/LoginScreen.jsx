@@ -15,7 +15,12 @@ const LoginScreen = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in successfully
-        navigation.navigate('ForumPageWithTabs');  // Removed the username parameter
+        const user = userCredential.user;
+        
+        // Extracting the username from user object. Adjust this based on how your user object is structured.
+        const username = user.displayName || user.email.split('@')[0];  // Assuming username is part of displayName or email before '@'
+        
+        navigation.navigate('ForumPageWithTabs', { username });
       })
       .catch((error) => {
         // Handle errors here

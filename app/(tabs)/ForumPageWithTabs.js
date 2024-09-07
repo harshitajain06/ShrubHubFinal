@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ImageBackground, StyleSheet, TouchableOpacity, Image, View, Text } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import ForumPage from './ForumPage';
 import Marketplace from './MarketplacePage';
 import Header from './Header';
@@ -10,6 +10,8 @@ const backImage = require("../../assets/images/Img2.png");
 
 const ForumPageWithTabs = () => {
   const navigation = useNavigation();
+  const route = useRoute();
+  const { username } = route.params;
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearchBarVisible, setIsSearchBarVisible] = useState(false);
   const [activeTab, setActiveTab] = useState('Forum');
@@ -24,15 +26,15 @@ const ForumPageWithTabs = () => {
 
   const renderActiveTab = () => {
     if (activeTab === 'Forum') {
-      return <ForumPage searchQuery={searchQuery} />;
+      return <ForumPage searchQuery={searchQuery} username={username}/>;
     } else if (activeTab === 'Marketplace') {
-      return <Marketplace searchQuery={searchQuery} />;
+      return <Marketplace searchQuery={searchQuery} username={username}/>;
     }
   };
 
   return (
     <ImageBackground source={backImage} style={styles.container}>
-      <Header navigation={navigation} toggleSearchBar={toggleSearchBar} />
+      <Header navigation={navigation} toggleSearchBar={toggleSearchBar} username={username}/>
       {isSearchBarVisible && <SearchBar onSearch={handleSearch} />}
       
       {/* Custom Tab Bar */}
@@ -51,7 +53,7 @@ const ForumPageWithTabs = () => {
       </View>
 
       {/* Add Post Button */}
-      <TouchableOpacity onPress={() => navigation.navigate('CreatePost')} style={styles.addPostIcon}>
+      <TouchableOpacity onPress={() => navigation.navigate('CreatePost', { username })} style={styles.addPostIcon}>
         <Image source={require('../../assets/images/Add.png')} style={{ width: 50, height: 50 }} />
       </TouchableOpacity>
     </ImageBackground>

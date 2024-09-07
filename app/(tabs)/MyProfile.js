@@ -1,11 +1,13 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ImageBackground, Image } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 const backImage = require("../../assets/images/Img2.png");
 const avatarImage = require("../../assets/images/profile.jpg");  // Replace with the path to your avatar image
 
 const MyProfile = () => {
   const navigation = useNavigation();
+  const route = useRoute();
+  const { username } = route.params;
 
   return (
     <ImageBackground source={backImage} style={styles.container}>
@@ -15,13 +17,13 @@ const MyProfile = () => {
           <Image source={avatarImage} style={styles.avatar} />
         </View>
         <View style={styles.usernameContainer}>
-          <Text style={styles.username}>Username</Text>
+          <Text style={styles.username}>{username}</Text>
         </View>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity onPress={() => navigation.navigate('ForumPage')} style={styles.button}>
+          <TouchableOpacity onPress={() => navigation.navigate('ForumPage', )} style={styles.button}>
             <Text style={styles.buttonText}>My Posts</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('ForumPage')} style={styles.button}>
+          <TouchableOpacity onPress={() => navigation.navigate('ForumPage', )} style={styles.button}>
             <Text style={styles.buttonText}>Saved Posts</Text>
           </TouchableOpacity>
         </View>
